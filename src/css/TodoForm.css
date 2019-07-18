@@ -1,0 +1,30 @@
+label {
+  color: grey;
+  font-weight: bold;
+  margin-right: 3px
+}
+
+input{
+  width: 50%;
+  border: 2px solid grey;
+  background-color: #F5F5DC ;
+  border-radius: 5px;
+  padding: 2px
+}
+
+input:focus{
+  outline: none;
+  border: 2px solid teal;
+}
+
+.addbtn {
+  margin-left: 3px;
+  background-color: grey;
+  color: white;
+  font-weight: bold;
+}
+
+.addbtn:hover{
+  background-color: teal;
+}
+
