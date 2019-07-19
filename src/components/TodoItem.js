@@ -3,62 +3,70 @@ import PropTypes from 'prop-types';
 import '../css/TodoItem.css'
 
 
-class TodoItem extends React.Component{
-  constructor(props){
+class TodoItem extends React.Component {
+  constructor(props) {
     super(props);
     this.state = {
-      isEditing: false,      
+      isEditing: false,
+      taskName: this.props.todo.name,
     }
   }
 
   toggleEdit = () => {
-    const{ isEditing } = this.state;
+    const { isEditing } = this.state;
     this.setState({
       isEditing: !isEditing
     });
   }
 
+  updateTaskName = (e) => {
+    this.setState({
+      taskName: e.target.value
+    });
+  }
+
   updateTask = (e) => {
     e.preventDefault();
-    const {updateTaskName, index} = this.props
-    const newName = this.input.value;
+    const { updateTaskName, index } = this.props
+    const newName = this.state.taskName;
     updateTaskName(newName, index);
     this.toggleEdit();
   }
 
   renderForm = () => {
-    const {name} = this.props.todo;
-    return(
+    const { name } = this.props.todo;
+    return (
       <form onSubmit={this.updateTask}>
-        <input type='text' ref={(ele)=> this.input = ele} defaultValue={name} />
+        {/* <input type='text' ref={(ele) => this.input = ele} defaultValue={name} /> */}
+        {<input type='text' value={this.state.taskName} onChange={this.updateTaskName} />}
         <button className='updbtn' type='submit'>Update</button>
       </form>
     )
   }
 
   renderItems = () => {
-    const {name, completed} = this.props.todo;
-    return(
-      <li style={liStyles} onClick={()=> this.props.clickHandler(this.props.index)} 
-      className={completed ? 'completed' : ''}>
-        <span>{ name }</span>
+    const { name, completed } = this.props.todo;
+    return (
+      <li style={liStyles} onClick={() => this.props.clickHandler(this.props.index)}
+        className={completed ? 'completed' : ''}>
+        <span>{name}</span>
         <div>
-        <button className='delbtn' 
-        onClick={()=>{
-        this.props.removeTask(this.props.index)
-        }}
-        >X
+          <button className='delbtn'
+            onClick={() => {
+              this.props.removeTask(this.props.index)
+            }}
+          >X
         </button>
-        <button className="editbtn" onClick={this.toggleEdit}>Edit</button>
+          <button className="editbtn" onClick={this.toggleEdit}>Edit</button>
         </div>
       </li>
     )
   }
 
-  render (){
+  render() {
     const { isEditing } = this.state;
     return (
-     isEditing ? this.renderForm() : this.renderItems()     
+      isEditing ? this.renderForm() : this.renderItems()
     )
   }
 }

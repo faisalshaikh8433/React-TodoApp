@@ -4,25 +4,36 @@ import TodoForm from './components/TodoForm';
 import './css/App.css';
 
 class App extends React.Component {
-  constructor(props){
+  constructor(props) {
     super(props); // calling reactcomponents constructor first to get all its properties and function to get state 
     this.state = {
-      tasks:[
+      tasks: [
         {
-          name:'Learning',
-          completed:true
+          name: 'Learning',
+          completed: true
         },
         {
-          name:'Eating',
-          completed:false
+          name: 'Eating',
+          completed: false
         },
         {
-          name:'Sleeping', 
-          completed:false
+          name: 'Sleeping',
+          completed: false
         }
       ],
-      currentTask: ""
+      users: [],
+      currentTask: "",
     }
+  }
+
+  componentDidMount() {
+    fetch('https://jsonplaceholder.typicode.com/users')
+      .then(response => response.json())
+      .then(users => {
+        this.setState({
+          users
+        });
+      })
   }
 
   changeStatus = (index) => {
@@ -36,8 +47,8 @@ class App extends React.Component {
     // })
 
     this.setState({
-      tasks:this.state.tasks.map((task, i) => {
-        if (index === i){
+      tasks: this.state.tasks.map((task, i) => {
+        if (index === i) {
           task.completed = !task.completed;
         }
         return task;
@@ -52,13 +63,13 @@ class App extends React.Component {
     })
   }
 
-  updateTaskName = (name, index) =>{
+  updateTaskName = (name, index) => {
     let tasks = this.state.tasks;
     let task = tasks[index];
     task["name"] = name;
     this.setState({
       tasks
-    });    
+    });
   }
 
   addCurrentTask = (event) => {
@@ -71,11 +82,11 @@ class App extends React.Component {
     });
     this.setState({
       tasks,
-      currentTask:""
+      currentTask: ""
     })
   }
 
-  deleteTask = (index) =>{
+  deleteTask = (index) => {
     let tasks = this.state.tasks;
     tasks.splice(index, 1);
     this.setState({
@@ -83,34 +94,58 @@ class App extends React.Component {
     })
   }
 
-  render(){
-    return(
-     <div>
+  render() {
+    const { tasks, users } = this.state;
+    return (
+      <div>
         <h1 className="heading">
           Todo's List
         </h1>
         <TodoForm
-        currentTask={this.state.currentTask}
-        updateCurrentTask={this.updateCurrentTask}
-        addCurrentTask={this.addCurrentTask}
+          currentTask={this.state.currentTask}
+          updateCurrentTask={this.updateCurrentTask}
+          addCurrentTask={this.addCurrentTask}
         />
         <div style={divStyles}>
           <ul style={ulStyles}>
             {
-            this.state.tasks.map((task, i) => 
-            <TodoItem 
-            clickHandler={this.changeStatus}
-            removeTask={this.deleteTask}
-              updateTaskName={this.updateTaskName}
-              key={i} 
-              index={i}
-              todo={task}
-              />
-            )
+              tasks.map((task, i) =>
+                <TodoItem
+                  clickHandler={this.changeStatus}
+                  removeTask={this.deleteTask}
+                  updateTaskName={this.updateTaskName}
+                  key={i}
+                  index={i}
+                  todo={task}
+                />
+              )
             }
           </ul>
         </div>
-     </div>
+        <div>
+          <h3>Users</h3>
+          <table style={tabStyles}>
+            <thead>
+              <tr>
+                <td>Id</td>
+                <td>Name</td>
+                <td>Email</td>
+              </tr>
+            </thead>
+            <tbody>
+              {
+                users.map(user =>
+                  <tr key={user.id}>
+                    <td>{user.id}</td>
+                    <td>{user.name}</td>
+                    <td>{user.email}</td>
+                  </tr>
+                )
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
     )
   }
 }
@@ -123,5 +158,10 @@ const divStyles = {
 const ulStyles = {
   padding: "0px",
 }
+
+const tabStyles = {
+  width: "100%"
+}
+
 
 export default App;
