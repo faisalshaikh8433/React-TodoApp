@@ -4,3 +4,21 @@
   color: white;
   font-weight: bold
 }
+
+.updbtn:hover{
+  background-color: teal;
+}
+
+.delbtn {
+  margin-left: 3px;
+  background-color: lightcoral;
+  color: white;
+  font-weight: bold;
+}
+
+.editbtn {
+  margin-left: 3px;
+  background-color: rgb(86, 188, 192);
+  color: white;
+  font-weight: bold;
+}

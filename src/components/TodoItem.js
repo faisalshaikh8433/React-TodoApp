@@ -39,16 +39,16 @@ class TodoItem extends React.Component{
   renderItems = () => {
     const {name, completed} = this.props.todo;
     return(
-      <li onClick={()=> this.props.clickHandler(this.props.index)} 
+      <li style={liStyles} onClick={()=> this.props.clickHandler(this.props.index)} 
       className={completed ? 'completed' : ''}>
         { name }
-        <button 
+        <button className='delbtn' 
         onClick={()=>{
         this.props.removeTask(this.props.index)
         }}
         >X
         </button>
-        <button onClick={this.toggleEdit}>Edit</button>
+        <button className="editbtn" onClick={this.toggleEdit}>Edit</button>
       </li>
     )
   }
@@ -66,6 +66,10 @@ class TodoItem extends React.Component{
 
 //   }
 // }
+
+const liStyles = {
+  marginTop: "10px"
+}
 
 TodoItem.propTypes = {
   clickHandler: PropTypes.func.isRequired,

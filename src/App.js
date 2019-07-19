@@ -115,14 +115,4 @@ class App extends React.Component {
   }
 }
 
-// const ulStyle = {
-//   width: '100%',
-//   float: 'left'
-// };
-
-// const divStyle = {
-  
-// }
-
-
 export default App;
