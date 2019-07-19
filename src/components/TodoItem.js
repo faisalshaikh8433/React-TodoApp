@@ -41,7 +41,8 @@ class TodoItem extends React.Component{
     return(
       <li style={liStyles} onClick={()=> this.props.clickHandler(this.props.index)} 
       className={completed ? 'completed' : ''}>
-        { name }
+        <span>{ name }</span>
+        <div>
         <button className='delbtn' 
         onClick={()=>{
         this.props.removeTask(this.props.index)
@@ -49,6 +50,7 @@ class TodoItem extends React.Component{
         >X
         </button>
         <button className="editbtn" onClick={this.toggleEdit}>Edit</button>
+        </div>
       </li>
     )
   }
@@ -68,7 +70,12 @@ class TodoItem extends React.Component{
 // }
 
 const liStyles = {
-  marginTop: "10px"
+  marginTop: "10px",
+  display: "flex",
+  listStyle: "none",
+  justifyContent: "space-between",
+  padding: '10px',
+  border: '1px solid #999'
 }
 
 TodoItem.propTypes = {

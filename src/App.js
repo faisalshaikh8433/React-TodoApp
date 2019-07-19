@@ -94,8 +94,8 @@ class App extends React.Component {
         updateCurrentTask={this.updateCurrentTask}
         addCurrentTask={this.addCurrentTask}
         />
-        <div>
-          {/* <ul style={ulStyle}> */}
+        <div style={divStyles}>
+          <ul style={ulStyles}>
             {
             this.state.tasks.map((task, i) => 
             <TodoItem 
@@ -108,11 +108,20 @@ class App extends React.Component {
               />
             )
             }
-          {/* </ul> */}
+          </ul>
         </div>
      </div>
     )
   }
+}
+
+const divStyles = {
+  maxWidth: "749px",
+  margin: "0 auto",
+}
+
+const ulStyles = {
+  padding: "0px",
 }
 
 export default App;
